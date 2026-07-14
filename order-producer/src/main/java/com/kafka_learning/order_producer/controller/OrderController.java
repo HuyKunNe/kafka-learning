@@ -23,7 +23,7 @@ public class OrderController {
     @PostMapping
     public String createOrder(@RequestBody OrderCreatedEvent event) {
 
-        producer.sendOrder(event);
+        producer.createOrder(event);
 
         return "Message Sent!";
     }
