@@ -6,14 +6,18 @@ import org.springframework.stereotype.Component;
 import com.kafka_learning.inventory_service.common_event.OrderCreatedEvent;
 
 @Component
-public class InventoryConsumer {
+public class DeadLetterConsumer {
 
-    @KafkaListener(topics = "order-created", groupId = "inventory-group")
+    @KafkaListener(
+            topics = "order-created-dlt",
+            groupId = "dlt-group"
+    )
     public void consume(OrderCreatedEvent event) {
-        System.out.println(event);
 
-        if (event.getOrderId() == 999) {
-            throw new RuntimeException("Cannot process order");
-        }
+        System.out.println("========== DLT ==========");
+        System.out.println(event);
+        System.out.println("=========================");
+
     }
+
 }
