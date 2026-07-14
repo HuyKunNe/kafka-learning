@@ -14,18 +14,17 @@ public class OrderProducer {
     }
 
     public void sendOrder(OrderCreatedEvent event) {
-        kafkaTemplate.send("order-created", event).whenComplete((result, ex) -> {
+        kafkaTemplate.send("order-created", event.getCustomerId().toString(), event).whenComplete((result, ex) -> {
 
             if (ex == null) {
 
                 System.out.println(
-                        result.getRecordMetadata().topic());
+                        "Partition: "
+                                + result.getRecordMetadata().partition());
 
                 System.out.println(
-                        result.getRecordMetadata().partition());
-
-                System.out.println(
-                        result.getRecordMetadata().offset());
+                        "Offset: "
+                                + result.getRecordMetadata().offset());
 
             }
         });
