@@ -16,7 +16,8 @@ public class KafkaConfig {
                 DeadLetterPublishingRecoverer recoverer = new DeadLetterPublishingRecoverer(kafkaTemplate);
 
                 FixedBackOff backOff = new FixedBackOff(2000L, 3);
-
+                // Ví dụ sẽ dùng ở các bài sau
+                // errorHandler.addNotRetryableExceptions(IllegalArgumentException.class);
                 return new DefaultErrorHandler(recoverer, backOff);
         }
 
