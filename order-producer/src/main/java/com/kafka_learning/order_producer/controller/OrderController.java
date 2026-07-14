@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kafka_learning.order_producer.common_event.OrderCreatedEvent;
 import com.kafka_learning.order_producer.service.OrderProducer;
 
 @RestController
@@ -20,9 +21,9 @@ public class OrderController {
     }
 
     @PostMapping
-    public String createOrder(@RequestBody String order) {
+    public String createOrder(@RequestBody OrderCreatedEvent event) {
 
-        producer.sendOrder(order);
+        producer.sendOrder(event);
 
         return "Message Sent!";
     }
